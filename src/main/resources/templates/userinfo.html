@@ -1,0 +1,41 @@
+<!--관리자 회원정보-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>회원목록</title>
+</head>
+<body>
+<div>
+  <form th:action="@{/admin/userinfo}">
+    <table>
+      <thead>
+      <tr>
+        <th>아이디</th>
+        <th>이름</th>
+        <th>핸드폰번호</th>
+        <th>이메일</th>
+        <th>회원 등급</th>
+        <th>회원 종류</th>
+        <th>회원 정보 수정</th>
+        <th>회원 탈퇴</th>
+      </tr>
+      </thead>
+      <tbody>
+          <tr th:each="user : ${users}">
+            <td th:text="${user.userid}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.userphone}"></td>
+            <td th:text="${user.useremail}"></td>
+            <td th:text="${user.rank.registerid}"></td>
+            <td th:text="${user.role.roleid}"></td>
+            <td><button class="update"><a th:href="@{/admin/updateuserinfo/{userid}(userid=${user.userid})}">회원 정보 수정</a></button></td>
+            <td><button><a th:href="@{/admin/deleteuser/{userid}(userid=${user.userid})}">회원 탈퇴</a></button></td>
+          </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
+
+</body>
+</html>

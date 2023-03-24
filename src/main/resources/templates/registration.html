@@ -1,0 +1,20 @@
+<!--관리자 시설 등록-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/admin/registration}" th:object="${placeCreateForm}" method="post"><div>
+            <input type="text" class="form-control" th:field="*{placename}" placeholder="시설 이름">
+        </div>
+        <div>
+            <input type="text" class="form-control" th:field="*{placelocation}" placeholder="시설 위치">
+        </div>
+        <div>
+            <button type="submit" class="btn-btn-primary">등록</button>
+        </div>
+    </form>
+</body>
+</html>

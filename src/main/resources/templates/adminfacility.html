@@ -1,0 +1,40 @@
+<!--유저 시설 리스트 및 예약-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>시설 표</h1>
+<div>
+    <form th:action="@{/admin/facility}">
+        <table class="table">
+            <thead class="table-dark">
+            <tr class="text-center">
+                <th>시설 이름</th>
+                <th>시설 위치</th>
+                <th>예약하기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-start" th:each="place: ${places}">
+                <td >
+                    <a th:text="${place.placename}"></a>
+                </td>
+                <td><span th:text="${place.placelocation}"></span></td>
+                <td><button class="delete-btn"><a th:href="@{/admin/facility/delete/{placeid}(placeid=${place.placeid})}">시설삭제</a></button></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="main">
+            <div class="userpage">
+                <div class="btn-group">
+                    <button class="back"><a href="/mainpage">돌아가기</a></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

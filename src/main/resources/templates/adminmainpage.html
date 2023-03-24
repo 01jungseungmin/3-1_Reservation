@@ -1,0 +1,19 @@
+<!--//관리자 로그인 페이지-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  관리자 페이지
+  <form th:action="@{/mainpage}">
+    <div class="btn-group">
+      <button onclick="location.href='/logout'" type="button" class="logout-btn">로그아웃</button>
+      <button class="userinfo"><a href="/admin/userinfo">회원 정보 출력</a></button>
+      <button class="registration"><a href="/admin/registration">시설 등록</a></button>
+      <button class="adminfacility"><a href="/admin/facility">시설 관리</a></button>
+    </div>
+</form>
+</body>
+</html>
