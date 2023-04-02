@@ -35,6 +35,15 @@ public class PlaceService {
         }
     }
 
+    public Place getPlace(String placeid) {
+        Optional<Place> place = this.placeRepository.findById(placeid);
+        if (place.isPresent()) {
+            return place.get();
+        } else {
+            throw new DataNotFoundException("place not found");
+        }
+    }
+
     public void addPlace(String PlaceName, String PlaceLocation, User user){
         Place place=new Place();
         place.setPlacename(PlaceName);
@@ -51,3 +60,4 @@ public class PlaceService {
         return placeRepository.findAll();
     }
 }
+

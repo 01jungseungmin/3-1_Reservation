@@ -23,7 +23,7 @@
                         <a th:text="${place.placename}"></a>
                     </td>
                     <td><span th:text="${place.placelocation}"></span></td>
-                    <td><button>예약</button></td>
+                    <td><button type="button" ><a th:href="@{/reservation/{placeid}(placeid=${place.placeid})}">예약</a></button></td>
                 </tr>
                 </tbody>
             </table>
@@ -32,6 +32,7 @@
                     <div class="btn-group">
                         <button onclick="location.href='/logout'" type="button" class="logout-btn">로그아웃</button>
                         <button class="update"><a href="/update">수정 및 탈퇴</a></button>
+                        <button onclick="location.href='/question/list'" type="button">게시판</button>
                     </div>
                 </div>
             </div>

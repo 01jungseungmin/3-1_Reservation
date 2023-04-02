@@ -1,11 +1,13 @@
 package com.example.demo.rental.entity;
 
 import com.example.demo.place.entity.Place;
+import com.example.demo.user.dto.UserDTO;
 import com.example.demo.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -16,9 +18,9 @@ public class Rental {
     @Id
     private String rentalid= UUID.randomUUID().toString();
 
-    private String rentalstart;
+    private LocalDateTime rentalstart;
 
-    private String rentalend;
+    private LocalDateTime rentalend;
 
     private String person;
 

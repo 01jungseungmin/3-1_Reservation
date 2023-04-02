@@ -53,6 +53,7 @@ public class PlaceController {
 
         return "adminfacility.html";
     }
+
     @GetMapping("/admin/facility/delete/{placeid}")
     public String deletefacility(Principal principal,@PathVariable("placeid") String placeid){
         PlaceDto placeDto=this.placeService.getPlaceDto(placeid);
