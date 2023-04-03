@@ -1,0 +1,24 @@
+<!--사용자 시설 예약-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <form th:action="@{/sendRental/{placeid}(placeid=${places.placeid})}" th:object="${rentalCreateForm}" method="post">
+    <div>
+      <input type="datetime-local" class="form-control" th:field="*{rentalstart}" placeholder="대여 시작 시간">
+    </div>
+    <div>
+      <input type="datetime-local" class="form-control" th:field="*{rentalend}" placeholder="대여 종료 시간">
+    </div>
+    <div>
+      <input type="text" class="form-control" th:field="*{person}" placeholder="예약자 성명">
+    </div>
+    <div>
+      <button type="submit" class="btn-btn-primary">등록</button>
+    </div>
+  </form>
+</body>
+</html>

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class RentalCreateForm {
+
     @NotNull(message = "시설 이용 시작 시간은 필수항목입니다.")
     private LocalDateTime rentalstart;
 
@@ -18,6 +19,4 @@ public class RentalCreateForm {
 
     @NotEmpty(message = "시설 이용자 이름은 필수항목입니다.")
     private String person;
-
-    private String place;
 }

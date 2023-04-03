@@ -59,5 +59,6 @@ public class PlaceService {
     public List<Place> findPlaces() {
         return placeRepository.findAll();
     }
+
 }
 
