@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약</title>
+    <link rel="stylesheet" href="/css/reserveTime.css">
+</head>
+<body>
+<form th:action="@{/sendRental/{placeid}(placeid=${places.placeid})}" th:object="${rentalCreateForm}" method="post">
+<!-- 이 부분은 신경쓰지 마세요. -->
+<header>
+    <div class="nav-bar">
+        <div id="nav-title">RES</div>
+        <div class="non-click" id="nav-home">HOME</div>
+        <div class="non-click" id="nav-place">PLACE</div>
+        <div class="non-click" id="nav-community">COMMUNITY</div>
+        <div class="non-click" id="nav-profile">PROFILE</div>
+        <div class="non-click" id="nav-help">HELP</div>
+    </div>
+    <div class="nav-user">
+        <img class="nav-user-img" src="/img/slide1.jpg">
+        <h3 class="nav-user-name">User</h3>
+    </div>
+
+    <div class="container">
+        <div class="hamburger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="panel"></div>
+    </div>
+</header>
+<!-- 여기부터 페이지 메인 -->
+<main>
+    <h1 class="reserve_font">Reservation</h1>
+    <input type="date" id="date-input" th:field="*{rentaldate}" name="rentaldate" class="Date">
+
+    <script>
+            // 현재 날짜 가져오기
+            var today = new Date();
+
+            // 오늘 이전의 날짜를 선택할 수 없도록 설정
+            var minDate = today.toISOString().split('T')[0];
+            document.getElementById('date-input').setAttribute('min', minDate);
+    </script>
+    <h1 class="place-time-name">2층 강의실</h1>
+    <div class="timeReserve">
+        <!--시간 예약-->
+        <div class="time">
+            <h1 class="time-name" >09:00am</h1>
+            <input type="hidden" name="rentaltime" value="09:00">
+            <input type="submit" name="reserve_09" class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >10:00am</h1>
+            <input type="hidden" name="rentaltime" th:value="10:00">
+            <input type="submit" name="reserve_10"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >11:00am</h1>
+            <input type="hidden" name="rentaltime" value="11:00">
+            <input type="submit" name="reserve_11"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >13:00pm</h1>
+            <input type="hidden" name="rentaltime" value="13:00">
+            <input type="submit" name="reserve_13"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >14:00pm</h1>
+            <input type="hidden" name="rentaltime" value="14:00">
+            <input type="submit" name="reserve_14"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >15:00pm</h1>
+            <input type="hidden" name="rentaltime" value="15:00">
+            <input type="submit" name="reserve_15"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >16:00pm</h1>
+            <input type="hidden" name="rentaltime" value="16:00">
+            <input type="submit" name="reserve_16"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >17:00pm</h1>
+            <input type="hidden" name="rentaltime" value="17:00">
+            <input type="submit" name="reserve_17"  class="reserve" value="예약">
+        </div>
+        <div class="time">
+            <h1 class="time-name" >18:00pm</h1>
+            <input type="hidden" name="rentaltime" value="18:00">
+            <input type="submit" name="reserve_18"  class="reserve" value="예약">
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="foot-info">
+        <h1 class="developer">
+            <br>
+            문의
+            <br>
+            <br>
+            정승민 : 010-0000-0000
+            <br>
+            <br>
+            조다운 : 010-1111-1111
+            <br>
+            <br>
+            진태흠 : 010-2222-2222
+            <br>
+        </h1>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/reserveTime.js"></script>
+</form>
+</body>
+</html>

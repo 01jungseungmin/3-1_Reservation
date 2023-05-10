@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>예약 현황</h1>
+<div>
+    <form th:action="@{/admin/user/rental}" method="post">
+        <table class="table">
+            <thead class="table-dark">
+            <tr class="text-center">
+                <th>시설 이름</th>
+                <th>예약자 ID</th>
+                <th>예약자명</th>
+                <th>예약 날짜</th>
+                <th>예약 시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-start" th:each="rental: ${rentals}">
+                <td>
+                    <a th:text="${rental.place.placename}"></a>
+                </td>
+                <td>
+                    <a th:text="${rental.user.userid}"></a>
+                </td>
+              <td>
+                <span th:text="${rental.user.username}"></span>
+              </td>
+                <td>
+                  <span th:text="${rental.rentaldate}"></span>
+                </td>
+              <td>
+                <span th:text="${rental.rentaltime}"></span>
+              </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+</body>
+</html>
