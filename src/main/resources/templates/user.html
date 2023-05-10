@@ -1,42 +1,76 @@
-<!--유저 시설 리스트 및 예약-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약</title>
+    <link rel="stylesheet" href="/css/Reservation.css" type="text/css">
 </head>
 <body>
-    <h1>시설 표</h1>
-    <div>
-        <form th:action="@{/user}" method="post">
-            <table class="table">
-                <thead class="table-dark">
-                <tr class="text-center">
-                    <th>시설 이름</th>
-                    <th>시설 위치</th>
-                    <th>예약하기</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="text-start" th:each="place: ${places}">
-                    <td >
-                        <a th:text="${place.placename}"></a>
-                    </td>
-                    <td><span th:text="${place.placelocation}"></span></td>
-                    <td><button type="button" ><a th:href="@{/reservation/{placeid}(placeid=${place.placeid})}">예약</a></button></td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="main">
-                <div class="userpage">
-                    <div class="btn-group">
-                        <button onclick="location.href='/logout'" type="button" class="logout-btn">로그아웃</button>
-                        <button class="update"><a href="/update">수정 및 탈퇴</a></button>
-                        <button onclick="location.href='/question/list'" type="button">게시판</button>
-                    </div>
+<form th:action="@{/user}" method="post">
+    <!-- 이 부분은 신경쓰지 마세요. -->
+    <header>
+        <div class="nav-bar">
+            <div id="nav-title"><a href="/user">RES</a></div>
+            <div class="non-click" id="nav-home"><a href="/home">HOME</a></div>
+            <div class="non-click" id="nav-place">
+                <a href="/user">PLACE</a>
+            </div>
+            <div class="non-click" id="nav-community"><a href="/question/list">COMMUNITY</a></div>
+            <div class="non-click" id="nav-profile">
+                <a href="/update">PROFILE</a>
+            </div>
+            <div class="non-click" id="nav-help">HELP</div>
+        </div>
+        <div class="nav-user">
+            <img class="nav-user-img" src="img/user.png">
+            <h3 class="nav-user-name">User</h3>
+        </div>
+
+        <div class="container">
+            <div class="hamburger-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="panel"></div>
+        </div>
+    </header>
+    <!-- 여기부터 페이지 메인 -->
+    <main>
+        <h1 class="reserve_font">Reservation</h1>
+        <div class="group">
+            <!-- 예약하기위한 박스 -->
+            <div class="select_room" >
+                <div class="select_room_cnt" th:each="place: ${places}">
+                <!--예약박스-->
+                    <div class="select_room_font" th:text="'시설: '+${place.placename}"></div>
+                    <div class="select_room_font" th:text="'위치: '+${place.placelocation}"></div>
+                    <button class="reserve-btn"><a th:href="@{/reservation/{placeid}(placeid=${place.placeid})}">예약</a></button>
                 </div>
             </div>
-        </form>
-    </div>
+        </div>
+    </main>
+    <footer>
+        <div class="foot-info">
+            <h1  class="developer">
+                <br>
+                문의
+                <br>
+                <br>
+                정승민 : 010-0000-0000
+                <br>
+                <br>
+                조다운 : 010-1111-1111
+                <br>
+                <br>
+                진태흠 : 010-2222-2222
+                <br>
+            </h1>
+        </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</form>
 </body>
 </html>

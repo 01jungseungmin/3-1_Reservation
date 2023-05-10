@@ -1,10 +1,15 @@
 package com.example.demo.user.controller;
 import com.example.demo.place.entity.Place;
 import com.example.demo.place.service.PlaceService;
+import com.example.demo.question.QuestionRepository;
+import com.example.demo.rental.entity.RentalCreateForm;
+import com.example.demo.rental.repository.RentalRepository;
+import com.example.demo.rental.service.RentalService;
 import com.example.demo.user.dto.UserDTO;
 import com.example.demo.user.entity.User;
 import com.example.demo.user.entity.UserCreateForm;
 import com.example.demo.user.entity.UserUpdateForm;
+import com.example.demo.user.repository.UserRepository;
 import com.example.demo.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +27,15 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
+    private final RentalService rentalService;
+
     private final PlaceService placeService;
+
+    private final UserRepository userRepository;
+
+    private final QuestionRepository questionRepository;
+
+    private final RentalRepository rentalrepository;
 
     @GetMapping("/login")
     public String loginForm(){return "index.html";}
@@ -73,7 +86,7 @@ public class UserController {
         UserDTO userDTO=userService.getUserDto(loginid);
 
         model.addAttribute("updateUser",userDTO);
-        this.userService.modify(userDTO,userUpdateForm.getUsername(),userUpdateForm.getPassword(),userUpdateForm.getPhone(),userUpdateForm.getEmail());
+        this.userService.modify(userDTO,userUpdateForm.getUsername(),userUpdateForm.getPhone(),userUpdateForm.getEmail());
         return "redirect:/";
     }
 
@@ -103,6 +116,14 @@ public class UserController {
         String loginid= principal.getName();
         UserDTO userDto=userService.getUserDto(loginid);
 
+        long usercount = userRepository.count();
+        long questioncount=questionRepository.count();
+        long rentalcount=rentalrepository.count();
+
+        model.addAttribute("userCount", usercount);
+        model.addAttribute("questionCount", questioncount);
+        model.addAttribute("rentalCount", rentalcount);
+
         if(userDto.getRole().getRoleid().equals("1"))
             return "adminmainpage.html";
 
@@ -110,7 +131,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String usermain2(Principal principal,Model model){
+    public String usermain2(RentalCreateForm rentalCreateForm, Principal principal, Model model){
         String loginid= principal.getName();
         UserDTO userDto=userService.getUserDto(loginid);
         List<Place> places=placeService.findPlaces();
@@ -137,7 +158,7 @@ public class UserController {
     public String adminuserupdating(@Valid UserUpdateForm userUpdateForm,@PathVariable("userid") String userid,Model model){
         UserDTO userDTO = this.userService.getUserDto(userid);
         model.addAttribute("updateUsers",userDTO);
-        this.userService.modify(userDTO, userUpdateForm.getUsername(),userUpdateForm.getPassword(),userUpdateForm.getPhone(),userUpdateForm.getEmail());
+        this.userService.modify(userDTO, userUpdateForm.getUsername(),userUpdateForm.getPhone(),userUpdateForm.getEmail());
         return "redirect:/adminmainpage";
     }
 
@@ -147,4 +168,7 @@ public class UserController {
         this.userService.delete(userDTO);
         return "redirect:/adminmainpage";
     }
+
+    @GetMapping("/help")
+    public String helpForm(){return "help.html";}
 }

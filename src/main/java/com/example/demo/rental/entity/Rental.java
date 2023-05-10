@@ -7,22 +7,24 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-@Table(name="rental")
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"placeid", "rentaldate", "rentaltime"}),name="rental")
 public class Rental {
     @Id
     private String rentalid= UUID.randomUUID().toString();
 
-    private LocalDateTime rentalstart;
+    private LocalDate rentaldate;
 
-    private LocalDateTime rentalend;
-
-    private String person;
+    private LocalTime rentaltime;
 
     @ManyToOne
     @JoinColumn(name="userhash")

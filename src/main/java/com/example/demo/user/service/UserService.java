@@ -63,9 +63,8 @@ public class UserService {
     }
 
 
-    public UserDTO modify(UserDTO userDTO, String username, String userpw, String userphone, String useremail) {
+    public UserDTO modify(UserDTO userDTO, String username,String userphone, String useremail) {
         userDTO.setUsername(username);
-        userDTO.setUserpw(passwordEncoder.encode(userpw));
         userDTO.setUserphone(userphone);
         userDTO.setUseremail(useremail);
         this.userRepository.save(of(userDTO));
@@ -83,5 +82,11 @@ public class UserService {
 
     public Optional<User> getUserById(String userid){
         return userRepository.findByUserid(userid);
+    }
+
+
+    public long getUserCount() {
+
+        return userRepository.count();
     }
 }

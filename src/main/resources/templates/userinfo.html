@@ -27,8 +27,8 @@
             <td th:text="${user.username}"></td>
             <td th:text="${user.userphone}"></td>
             <td th:text="${user.useremail}"></td>
-            <td th:text="${user.rank.registerid}"></td>
-            <td th:text="${user.role.roleid}"></td>
+            <td th:text="${user.rank.ranking}"></td>
+            <td th:text="${user.role.role}"></td>
             <td><button class="update"><a th:href="@{/admin/updateuserinfo/{userid}(userid=${user.userid})}">회원 정보 수정</a></button></td>
             <td><button><a th:href="@{/admin/deleteuser/{userid}(userid=${user.userid})}">회원 탈퇴</a></button></td>
           </tr>

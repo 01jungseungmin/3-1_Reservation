@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -31,6 +32,7 @@ public class User {
 
     @Column(unique = true)
     private String useremail;
+
 
     @ManyToOne
     @JoinColumn(name="userrole")

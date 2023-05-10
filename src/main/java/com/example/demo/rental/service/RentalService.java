@@ -7,7 +7,12 @@ import com.example.demo.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -15,17 +20,36 @@ import java.util.Optional;
 public class RentalService {
     private  final RentalRepository rentalRepository;
 
-    public void createRental(Place place,User user,LocalDateTime RentalStart, LocalDateTime RentalEnd, String Person){
+    public void createRental(Place place, User user, LocalDate rentaldate, LocalTime rentaltime){
         Rental rental=new Rental();
         rental.setPlace(place);
         rental.setUser(user);
-        rental.setRentalstart(RentalStart);
-        rental.setRentalend(RentalEnd);
-        rental.setPerson(Person);
+        rental.setRentaldate(rentaldate);
+        rental.setRentaltime(rentaltime);
         this.rentalRepository.save(rental);
     }
 
     public Optional<Rental> getRental(String rentalid){
         return rentalRepository.findById(rentalid);
     }
+
+    public List<Rental> findRentals() {
+        return rentalRepository.findAll();
+    }
+
+
+    public long getRentalCount() {
+        return rentalRepository.count();
+    }
+
+    public boolean isReserved(LocalDate rentaldate, LocalTime rentaltime, Place place){
+        List<Rental> rentals = rentalRepository.findByRentaldateAndRentaltimeAndPlace(rentaldate,rentaltime,place);
+        if(rentals.isEmpty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
 }
