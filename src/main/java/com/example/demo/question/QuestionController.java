@@ -33,6 +33,15 @@ public class QuestionController {
         model.addAttribute("kw", kw);
         return "question_list";
     }
+
+    @RequestMapping("/questionmain")
+    public String questionmain(Model model, @RequestParam(value="page", defaultValue="0") int page,
+                       @RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<QuestionDto> paging = this.questionService.getListMain(page, kw);
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        return "question_main";
+    }
     
     @RequestMapping(value = "/detail/{id}")
     public String detail(Model model, @PathVariable("id") Integer id, AnswerForm answerForm) {
@@ -63,7 +72,7 @@ public class QuestionController {
     @GetMapping("/modify/{id}")
     public String questionModify(QuestionForm questionForm, @PathVariable("id") Integer id, Principal principal) {
         QuestionDto questionDto = this.questionService.getQuestion(id);
-        if(!questionDto.getAuthor().getUsername().equals(principal.getName())) {
+        if(!questionDto.getAuthor().getUserid().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         questionForm.setSubject(questionDto.getSubject());
@@ -79,7 +88,7 @@ public class QuestionController {
             return "question_form";
         }
         QuestionDto questionDto = this.questionService.getQuestion(id);
-        if (!questionDto.getAuthor().getUsername().equals(principal.getName())) {
+        if (!questionDto.getAuthor().getUserid().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.questionService.modify(questionDto, questionForm.getSubject(), questionForm.getContent());
@@ -90,7 +99,7 @@ public class QuestionController {
     @GetMapping("/delete/{id}")
     public String questionDelete(Principal principal, @PathVariable("id") Integer id) {
         QuestionDto questionDto = this.questionService.getQuestion(id);
-        if (!questionDto.getAuthor().getUsername().equals(principal.getName())) {
+        if (!questionDto.getAuthor().getUserid().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.questionService.delete(questionDto);

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="/css/css.css">
+</head>
+<body>
+<header>
+    <div class="nav-bar">
+        <div id="nav-title"><a href="/user">RES</a></div>
+        <div class="non-click" id="nav-home"><a href="/home">HOME</a></div>
+        <div class="non-click" id="nav-place"><a href="/user">PLACE</a></div>
+        <div class="non-click" id="nav-community"><a href="/question/questionmain">COMMUNITY</a></div>
+        <div class="non-click" id="nav-profile"><a href="/update">PROFILE</a></div>
+        <div class="non-click" id="nav-help"><a href="/help">HELP</a></div>
+    </div>
+    <div class="nav-user">
+        <img class="nav-user-img" src="img/user.png">
+        <h3 class="nav-user-name">User</h3>
+    </div>
+
+    <div class="container">
+        <div class="hamburger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="panel">
+        </div>
+    </div>
+</header>
+<div class = "main">
+    <div class="main_page">
+        <div class="main_page_main">
+            <div class="main_page_title">
+                <p>부천대학교 시설 예약</p>
+                <strong>궁금한 사항이 있다면 여쭤보세요</strong>
+            </div>
+        </div>
+        <div class="main-img-box">
+            <img class="main-img" src="/img/Library.png">
+        </div>
+    </div>
+    <div class="board_wrap3">
+        <div class="board_title3">
+            <strong>게시판 리스트</strong>
+        </div>
+        <div class="notice">
+            <a href="list"><div class="non-click" id="notice1">공지사항</div></a>
+            <a href="list"><div class="non-click" id="notice2">학생 게시판</div></a>
+        </div>
+    </div>
+
+    <div class="board_wrap3">
+        <div class="board_title3">
+            <strong>자주찾는 게시판</strong>
+            <p>학생들이 자주 이용하거나 보는 게시판입니다.</p>
+        </div>
+    </div>
+    <div class="board_main">
+        <div class="board_main1">
+            <strong>공지사항</strong>
+            <p><a href="list">>더보기</a></p>
+            <div class="board_list">
+                <div class="top" th:each="question, loop : ${paging}">
+                    <div class="title1"><a th:href="@{|/question/detail/${question.id}|}"
+                                           th:text="${question.subject}"></a></div>
+                    <div class="writer1"><span th:if="${question.author != null}"
+                                               th:text="${question.author.username}"></span></div>
+                    <div class="date1" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="board_main2">
+            <strong>학생 게시판</strong>
+            <p><a href="list">>더보기</a></p>
+            <div class="board_list">
+                <div class="top" th:each="question, loop : ${paging}">
+                    <div class="title1"><a th:href="@{|/question/detail/${question.id}|}"
+                                           th:text="${question.subject}"></a></div>
+                    <div class="writer1"><span th:if="${question.author != null}"
+                                               th:text="${question.author.username}"></span></div>
+                    <div class="date1" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="foot-info">
+        <h1  class="developer">
+            <br>
+            문의
+            <br>
+            <br>
+            정승민 : 010-0000-0000
+            <br>
+            <br>
+            조다운 : 010-1111-1111
+            <br>
+            <br>
+            진태흠 : 010-2222-2222
+            <br>
+        </h1>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="Home.js"></script>
+</body>
+</html>

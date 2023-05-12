@@ -1,69 +1,120 @@
-<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
-<div layout:fragment="content" class="container my-3">
-  <div class="row my-3">
-    <div class="col-6">
-      <a th:href="@{/question/create}" class="btn btn-primary">질문 등록하기</a>
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항</title>
+    <link rel="stylesheet" href="/css/css.css" type="text/css">
+</head>
+<body>
+<header>
+    <div class="nav-bar">
+        <div id="nav-title"><a href="/user">RES</a></div>
+        <div class="non-click" id="nav-home"><a href="/home">HOME</a></div>
+        <div class="non-click" id="nav-place"><a href="/user">PLACE</a></div>
+        <div class="non-click" id="nav-community"><a href="/question/questionmain">COMMUNITY</a></div>
+        <div class="non-click" id="nav-profile"><a href="/update">PROFILE</a></div>
+        <div class="non-click" id="nav-help"><a href="/help">HELP</a></div>
     </div>
-    <div class="col-6">
-      <div class="input-group">
-        <input type="text" id="search_kw" class="form-control" th:value="${kw}">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+    <div class="nav-user">
+        <img class="nav-user-img" src="img/user.png">
+        <h3 class="nav-user-name">User</h3>
+    </div>
+
+    <div class="container">
+        <div class="hamburger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
         </div>
-      </div>
+        <div class="panel">
+        </div>
     </div>
-  </div>
-  <table class="table">
-    <thead class="table-dark">
-    <tr class="text-center">
-      <th>번호</th>
-      <th style="width:50%">제목</th>
-      <th>글쓴이</th>
-      <th>작성일시</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="text-center" th:each="question, loop : ${paging}">
-      <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-      <td class="text-start">
-        <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a>
-        <span class="text-danger small ms-2"
-              th:if="${#lists.size(question.answerList) > 0}"
-              th:text="${#lists.size(question.answerList)}">
-                    </span>
-      </td>
-      <td><span th:if="${question.author != null}" th:text="${question.author.username}"></span></td>
-      <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
-    </tr>
-    </tbody>
-  </table>
-  <!-- 페이징처리 시작 -->
-  <div th:if="${!paging.isEmpty()}">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-        <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
-          <span>이전</span>
-        </a>
-      </li>
-      <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-          th:if="${page >= paging.number-5 and page <= paging.number+5}"
-          th:classappend="${page == paging.number} ? 'active'"
-          class="page-item">
-        <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
-      </li>
-      <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-        <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
-          <span>다음</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <!-- 페이징처리 끝 -->
-  <form th:action="@{/question/list}" method="get" id="searchForm">
+</header>
+<div class="main">
+    <div class="main_page">
+        <div class="main_page_main">
+            <div class="main_page_title">
+                <p>부천대학교 시설 예약</p>
+                <strong>궁금한 사항이 있다면 여쭤보세요</strong>
+            </div>
+        </div>
+        <div class="main-img-box2">
+            <img class="main-img2" src="/img/List.png">
+        </div>
+    </div>
+    <div class="board_wrap">
+        <div class="board_link">
+            <a href="#"><img class="noticelink" src="/img/homeicon.png"></a>
+            <a href="main.html"><p>> COMMUNITY ></p></a>
+            <a href="#"><p>공지사항</p></a>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="num">번호</div>
+                    <div class="title">제목</div>
+                    <div class="writer">글쓴이</div>
+                    <div class="date">작성일</div>
+                </div>
+                <div class="text-center" th:each="question, loop : ${paging}">
+                    <div class="num"
+                         th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></div>
+                    <!--번호-->
+                    <div class="title"><a th:href="@{|/question/detail/${question.id}|}"
+                                          th:text="${question.subject}"></a></div> <!--제목-->
+                    <div class="answer"><span  th:if="${#lists.size(question.answerList) > 0}"
+                                                               th:text="${#lists.size(question.answerList)}">
+                    </span> <!--"answerList"의 크기가 0보다 크면 "text-danger small" 클래스를 가진 span 요소를 추가하여 답변 수를 보여줍니다.-->
+                    </div>
+                    <div class="writer"><span th:if="${question.author != null}"
+                                              th:text="${question.author.username}"></span></div>
+                    <!--"작성자" 열입니다. 이 열은 "question" 객체의 "author" 속성이 null이 아닌 경우 "username" 값-->
+                    <div class="date" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+                    <!--"createDate" 값을 "yyyy-MM-dd HH:mm" 형식으로 표시합니다. #temporals.format 표현식을 사용하여 날짜를 형식화-->
+                </div>
+                <!-- 페이징처리 시작 -->
+                <div class="board_page" th:if="${!paging.isEmpty()}">
+                    <!--첫 번째 div 요소는 "paging" 객체가 비어 있지 않은 경우에만 나타납니다. 이 div 요소는 페이지 링크 목록을 감싸고 있습니다.-->
+                    <ul class="pagination justify-content-center">
+                        <a class="bt prev" th:href="@{|?page=${paging.number-1}|}"
+                           th:classappend="${!paging.hasPrevious} ? 'disabled'" th:data-page="${paging.number-1}">
+                            <span><</span>
+                        </a>
+                        <!--"이전" 페이지 링크를 나타냅니다. th:classappend 속성은 "paging" 객체에 이전 페이지가 없는 경우 "disabled" 클래스를 추가-->
+                        <a class="num" th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                           th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                           th:classappend="${page == paging.number} ? 'active'" th:text="${page}"
+                           th:href="@{|?page=${page}|}" th:data-page="${page}" style="width:32px">
+
+                        </a>
+                        <!--각 페이지 링크를 나타냅니다.age >= paging.number-5 and page <= paging.number+5 식을 사용하여 현재 페이지에서 5 페이지 이전부터 5 페이지 이후까지의 페이지 링크만 표시합-->
+                        <a class="bt next" th:href="@{|?page=${paging.number+1}|}"
+                           th:classappend="${!paging.hasNext} ? 'disabled'" th:data-page="${paging.number+1}">
+                            <span>></span>
+                        </a>
+                        <!--"다음" 페이지 링크를 나타냅니다. th:classappend 속성은 "paging" 객체에 다음 페이지가 없는 경우 "disabled" 클래스를 추가-->
+                    </ul> <!--페이지 링크 목록을 나타냅니다. justify-content-center 클래스는 페이지 링크 목록을 중앙 정렬합니다.-->
+                </div>
+            </div>
+            <div class="bt_wrap">
+                <a th:href="@{/question/create}" class="on">등록</a>
+            </div>
+            <div class="borderline"></div>
+
+            <div class="search">
+                <input type="text" id="search_kw" class="form-control" th:value="${kw}" placeholder="검색어를 입력해주세요.">
+                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 페이징처리 끝 -->
+<form th:action="@{/question/list}" method="get" id="searchForm">
     <input type="hidden" id="kw" name="kw" th:value="${kw}">
     <input type="hidden" id="page" name="page" th:value="${paging.number}">
-  </form>
-</div>
+</form>
+
 <script layout:fragment="script" type='text/javascript'>
 const page_elements = document.getElementsByClassName("page-link");
 Array.from(page_elements).forEach(function(element) {
@@ -78,5 +129,14 @@ btn_search.addEventListener('click', function() {
     document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
     document.getElementById('searchForm').submit();
 });
+
+
+
+
+
+
+
+
 </script>
+</body>
 </html>

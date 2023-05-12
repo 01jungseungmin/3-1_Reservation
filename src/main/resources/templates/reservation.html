@@ -10,29 +10,30 @@
 <body>
 <form th:action="@{/sendRental/{placeid}(placeid=${places.placeid})}" th:object="${rentalCreateForm}" method="post">
 <!-- 이 부분은 신경쓰지 마세요. -->
-<header>
-    <div class="nav-bar">
-        <div id="nav-title">RES</div>
-        <div class="non-click" id="nav-home">HOME</div>
-        <div class="non-click" id="nav-place">PLACE</div>
-        <div class="non-click" id="nav-community">COMMUNITY</div>
-        <div class="non-click" id="nav-profile">PROFILE</div>
-        <div class="non-click" id="nav-help">HELP</div>
-    </div>
-    <div class="nav-user">
-        <img class="nav-user-img" src="/img/slide1.jpg">
-        <h3 class="nav-user-name">User</h3>
-    </div>
-
-    <div class="container">
-        <div class="hamburger-menu">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
+    <header>
+        <div class="nav-bar">
+            <div id="nav-title"><a href="/user">RES</a></div>
+            <div class="non-click" id="nav-home"><a href="/home">HOME</a></div>
+            <div class="non-click" id="nav-place"><a href="/user">PLACE</a></div>
+            <div class="non-click" id="nav-community"><a href="/question/questionmain">COMMUNITY</a></div>
+            <div class="non-click" id="nav-profile"><a href="/update">PROFILE</a></div>
+            <div class="non-click" id="nav-help"><a href="/help">HELP</a></div>
         </div>
-        <div class="panel"></div>
-    </div>
-</header>
+        <div class="nav-user">
+            <img class="nav-user-img" src="img/user.png">
+            <h3 class="nav-user-name">User</h3>
+        </div>
+
+        <div class="container">
+            <div class="hamburger-menu">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+            <div class="panel">
+            </div>
+        </div>
+    </header>
 <!-- 여기부터 페이지 메인 -->
 <main>
     <h1 class="reserve_font">Reservation</h1>
@@ -56,7 +57,7 @@
         </div>
         <div class="time">
             <h1 class="time-name" >10:00am</h1>
-            <input type="hidden" name="rentaltime" th:value="10:00">
+            <input type="hidden" name="rentaltime" value="10:00">
             <input type="submit" name="reserve_10"  class="reserve" value="예약">
         </div>
         <div class="time">

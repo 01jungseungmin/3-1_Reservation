@@ -63,6 +63,16 @@ public class QuestionService {
         Page<QuestionDto> questionDtoList = questionList.map(q -> of(q));
         return questionDtoList;
     }
+
+    public Page<QuestionDto> getListMain(int page, String kw) {
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 5, Sort.by(sorts));
+        Specification<Question> spec = search(kw);
+        Page<Question> questionList = this.questionRepository.findAll(spec, pageable);
+        Page<QuestionDto> questionDtoList = questionList.map(q -> of(q));
+        return questionDtoList;
+    }
     
     public QuestionDto getQuestion(Integer id) {
         Optional<Question> question = this.questionRepository.findById(id);

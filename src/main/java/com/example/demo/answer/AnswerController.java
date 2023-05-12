@@ -48,7 +48,7 @@ public class AnswerController {
     @GetMapping("/modify/{id}")
     public String answerModify(AnswerForm answerForm, @PathVariable("id") Integer id, Principal principal) {
         AnswerDto answerDto = this.answerService.getAnswer(id);
-        if (!answerDto.getAuthor().getUsername().equals(principal.getName())) {
+        if (!answerDto.getAuthor().getUserid().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         answerForm.setContent(answerDto.getContent());
@@ -63,7 +63,7 @@ public class AnswerController {
             return "answer_form";
         }
         AnswerDto answerDto = this.answerService.getAnswer(id);
-        if (!answerDto.getAuthor().getUsername().equals(principal.getName())) {
+        if (!answerDto.getAuthor().getUserid().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         this.answerService.modify(answerDto, answerForm.getContent());
@@ -75,7 +75,7 @@ public class AnswerController {
     @GetMapping("/delete/{id}")
     public String answerDelete(Principal principal, @PathVariable("id") Integer id) {
         AnswerDto answerDto = this.answerService.getAnswer(id);
-        if (!answerDto.getAuthor().getUsername().equals(principal.getName())) {
+        if (!answerDto.getAuthor().getUserid().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.answerService.delete(answerDto);
